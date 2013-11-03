@@ -1,0 +1,9 @@
+Recently, I tried to write a specialized csv file parser in C to read in data that I wanted to analyze. I had a tough time because, contrary to my expectations, the lines in my csv file were delimited by the carriage return character, \r (hexidecimal index 0d), instead of the usual line feed character, \n (hexidecimal index 0a).
+
+I saw my mistake when I opened the data file in Hex Fiend and saw a 0d byte whenever I expected to see a 0a byte. Orignal problem diagnosed.
+
+However, I was still unsatisfied. Hex editors are great, but I wanted a tool that combined the readability of human text with the honesty and full detail of byte code. So I wrote SHASCII: Show Hidden ASCII, publicly available at https://github.com/wlandau/shascii. It reads a text file and prints out the same text with all the original ASCII control characters shown explicitly. The output shows control characters in C language character escape code notation when possible: for example, the line feed character is shown, literally, as \n. For control characters with no C language escape notation, caret notation is used. Caret notation is used for all ASCII control characters if the -c flag is set. All non-control characters are left alone. http://en.wikipedia.org/wiki/Ascii has good expalnations of ASCII and these notations.
+
+After some searching and experimentation, I realized that shascii -f test.csv -x a -c does almost exactly as cat -e test.csv. The only difference is that cat -c shows line feeds with $. So, I guess I reinvented the wheel. Oops.
+
+But here's a wheel that I don't think has been invented yet. There's an opportunity to here to write a new kind of text editor. I'm imagining something like Hex Fiend, but with output from cat -e or SHASCII instead of byte code in the second panel. Such an editor would combine the readability of human text with the honesty of byte code.

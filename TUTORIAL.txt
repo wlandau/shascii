@@ -1,0 +1,88 @@
+COMPILATION:
+
+To use, you need gcc, along with the following header files:
+
+stdio.h
+stdlib.h
+string.h
+unistd.h
+
+To compile, simply shell into the containing directory and type:
+
+make
+make install
+
+into the command line. The output should be:
+
+> make
+gcc -c -Wall -pedantic -ansi shascii.c -o shascii.o
+gcc shascii.o -o shascii_1_01
+> make install
+gcc -c -Wall -pedantic -ansi shascii.c -o shascii.o
+gcc shascii.o -o shascii_1_01
+Existence of binary /usr/local/bin/shascii verified.
+Existence of binary /usr/local/bin/shascii_1_01 verified.
+If install succeeded, enter shascii into command line to see usage.
+> 
+
+Edit INSTALL_PATH at the top of the Makefile if you want to install these binaries in a location other than /usr/local/bin.
+
+The main C binary, shascii, should be in the containing directory and ready for immediate use.
+
+
+Usage:
+  shascii [flag_1] [arg_1] ... [flag_n] [arg_n] 
+
+Options:
+  Flag 	Arg       	 Description
+  -a               	 About.
+  -c               	 Print out all ASCII control characters in caret notation.
+  -d 	[dec_index] 	 Break up output into lines by the ASCII character with 
+                 	 decimal code [dec_index].
+  -f 	[file]  	 Use contents of [file] as input.
+  -h               	 Usage.
+  -p         		 Pipe input from another program through stdin.
+  -t 	[text]     	 Use [text] as input.
+  -x 	[hex_index] 	 Break up output into lines by the ASCII character with 
+                 	 hexidecimal code [hex_index].
+
+
+EXAMPLE:
+
+As an example, take test.csv, which should be in the same directory as this tutorial file.
+If you open test.csv in a simple text editor like TextEdit, you should see:
+
+Geographic code,Person-years,No. of deaths
+1003,323709,23
+1015,215126,16
+1043,189241,14
+1055,210235,12
+
+To process this file, type into the command line:
+
+shascii -f test.csv
+
+The output is:
+
+Geographic code,Person-years,No. of deaths\r1003,323709,23\r1015,215126...
+
+That's hard to read. So this time, let's break up the output into separate lines using the carraige return, \r (hex code 0d),  as the delimiter. Enter shascii -f test.csv -x d into your console. The output is:
+
+Geographic code,Person-years,No. of deaths\r
+1003,323709,23\r
+1015,215126,16\r
+1043,189241,14\r
+1055,210235,12
+Clearly, the \r character delimits lines in test.csv instead of \n.
+
+If I wanted to, I could have added the -c flag:
+
+shascii -f test.csv -x d -c
+
+which shows all the ASCII control characters in caret notation instead of showing some in escape notation and the rest in caret notation:
+
+ Geographic code,Person-years,No. of deaths^M
+1003,323709,23^M
+1015,215126,16^M
+1043,189241,14^M
+1055,210235,12
