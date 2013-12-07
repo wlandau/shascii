@@ -6,16 +6,18 @@ CC=gcc
 CFLAGS=-c -Wall -pedantic -ansi
 BIN_CURR=$(BIN)_$(VERSION)
 
-all: $(BIN_CURR)
+all: $(BIN)
 
 shascii_$(VERSION): $(BIN).o
-	$(CC) $(BIN).o -o $(BIN_CURR)
+	$(CC) $(BIN).o -o $(BIN)
 
 shascii.o: shascii.c
 	$(CC) $(CFLAGS) $(BIN).c -o $(BIN).o
 
 clean: 
-	rm *.o
+	rm -f *.o
+	rm -rf $(BIN)
+	rm -rf $(BIN_CURR)
 
 install: $(BIN_CURR)
 	@chmod +x install.sh
