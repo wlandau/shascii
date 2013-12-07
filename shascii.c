@@ -62,7 +62,7 @@ void usage(){
 }
 
 void handle_error(char* message){
-  printf("OH NO! %s\nFor usage, enter: shascii -h\n", message);
+  fprintf(stderr, "OH NO! %s\nFor usage, enter: shascii -h\n", message);
   exit(EXIT_FAILURE);
 }
 
@@ -71,7 +71,7 @@ void read_file(char **input, char* filename){
   FILE *in;
   
   if((in = fopen(filename, "r")) == NULL)
-    handle_error("Input file %s does not exist.\n");
+    fprintf(stderr, "Input file \"%s\" does not exist.\n", filename);
   
   fseek(in, 0L, SEEK_END);
   n = ftell(in);
