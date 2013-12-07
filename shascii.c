@@ -71,7 +71,7 @@ void read_file(char **input, char* filename){
   FILE *in;
   
   if((in = fopen(filename, "r")) == NULL){
-    fprintf(stderr, "Input file \"%s\" does not exist.\n", filename);
+    fprintf(stderr, "Error: input file \"%s\" does not exist.\n", filename);
     exit(EXIT_FAILURE);
   }
   
