@@ -70,8 +70,10 @@ void read_file(char **input, char* filename){
   int n;
   FILE *in;
   
-  if((in = fopen(filename, "r")) == NULL)
+  if((in = fopen(filename, "r")) == NULL){
     fprintf(stderr, "Input file \"%s\" does not exist.\n", filename);
+    exit(EXIT_FAILURE);
+  }
   
   fseek(in, 0L, SEEK_END);
   n = ftell(in);
