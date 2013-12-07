@@ -157,7 +157,7 @@ void one_sub(char **buf, char c, int cflag){
 void compute_output(char **output, char *input, unsigned long int delim,
                  int delimflag, int cflag){
   int i, j, n, buflen = 3;
-  char *buf;
+  char *buf = NULL;
   
   n = strlen(input);
   *output = (char*) calloc((2*n + 1), sizeof(char));
@@ -178,7 +178,7 @@ void compute_output(char **output, char *input, unsigned long int delim,
 }
 
 int main(int argc, char **argv){
-  char c, opt, filename[256], *buf, *input, *output;
+  char c, opt, filename[256], *buf = NULL, *input = NULL, *output = NULL;
   int i, count, cflag = 0, delimflag = 0, pflag = 0, fflag = 0, tflag = 0;
   unsigned long int delim = 0;
   
@@ -259,8 +259,14 @@ int main(int argc, char **argv){
   printf("%s\n", output);
   
   /* clean up */
-  free(buf);
-  free(input);
-  free(output);
+  if(buf != NULL)
+    free(buf);
+    
+  if(input != NULL)  
+    free(input);
+
+  if(output != NULL)
+    free(output);
+
   exit(EXIT_SUCCESS);
 }
