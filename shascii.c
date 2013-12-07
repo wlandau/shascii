@@ -21,6 +21,7 @@ Compile and run with:
   shascii -f [input_file] 
 */
 
+#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
